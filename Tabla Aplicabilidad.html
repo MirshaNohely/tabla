@@ -3244,6 +3244,7 @@
         <div class="row mt-2">
             <div class="col-12 d-flex w-100 borde context">
                 <div class="col-11">
+                    <div class="accordion-item">
                     <div class="accordion" id="accordionExample">
                             
                                
@@ -3583,6 +3584,9 @@
                     </div>
             </div>
             </div>
+        </div>
+       
+        
      
         
       
@@ -4115,9 +4119,13 @@
                 
             </div>
             </div>
-        </div>
-        </div>
-        </div>
+            </div>
+            </div>
+            </div>
+            </div>
+        
+        
+        
         
 <!-------------------------------------------------------------------------------->
 
@@ -4126,23 +4134,42 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
+<!-- Back to Top Button -->
+<button id="back-to-top" class="btn btn-primary" style="position: fixed; bottom: 20px; right: 20px; display: none;">Top</button>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var collapseElements = document.querySelectorAll('.collapse');
-            collapseElements.forEach(function (collapseElement) {
-                collapseElement.addEventListener('show.bs.collapse', function () {
-                    var parentAccordion = collapseElement.closest('.accordion');
-                    var openCollapseElements = parentAccordion.querySelectorAll('.collapse.show');
-                    openCollapseElements.forEach(function (openCollapseElement) {
-                        if (openCollapseElement !== collapseElement) {
-                            var collapseInstance = bootstrap.Collapse.getInstance(openCollapseElement);
-                            collapseInstance.hide();
-                        }
-                    });
+<script>
+    // Show or hide the back-to-top button
+    window.addEventListener('scroll', function () {
+        var backToTopButton = document.getElementById('back-to-top');
+        if (window.scrollY > 200) {
+            backToTopButton.style.display = 'block';
+        } else {
+            backToTopButton.style.display = 'none';
+        }
+    });
+
+    // Scroll to the top when the button is clicked
+    document.getElementById('back-to-top').addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var collapseElements = document.querySelectorAll('.collapse');
+        collapseElements.forEach(function (collapseElement) {
+            collapseElement.addEventListener('show.bs.collapse', function () {
+                var parentAccordion = collapseElement.closest('.accordion');
+                var openCollapseElements = parentAccordion.querySelectorAll('.collapse.show');
+                openCollapseElements.forEach(function (openCollapseElement) {
+                    if (openCollapseElement !== collapseElement) {
+                        var collapseInstance = bootstrap.Collapse.getInstance(openCollapseElement);
+                        collapseInstance.hide();
+                    }
                 });
             });
         });
-    </script>
+    });
+</script>
     
 
