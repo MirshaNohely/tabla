@@ -4156,20 +4156,37 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var collapseElements = document.querySelectorAll('.collapse');
-        collapseElements.forEach(function (collapseElement) {
-            collapseElement.addEventListener('show.bs.collapse', function () {
-                var parentAccordion = collapseElement.closest('.accordion');
-                var openCollapseElements = parentAccordion.querySelectorAll('.collapse.show');
-                openCollapseElements.forEach(function (openCollapseElement) {
+    // Seleccionar todos los elementos colapsables (acordeones principales y desplegables internos)
+    var collapseElements = document.querySelectorAll('.accordion-collapse');
+    collapseElements.forEach(function (collapseElement) {
+        // Escuchar el evento de apertura de cada elemento colapsable
+        collapseElement.addEventListener('show.bs.collapse', function () {
+            // Verificar si el elemento pertenece a un acordeón principal
+            var parentAccordion = collapseElement.closest('.accordion');
+            var isMainAccordion = parentAccordion && parentAccordion.id.startsWith('accordionExample'); // Identificar si es acordeón principal
+
+            if (isMainAccordion) {
+                // Cerrar otros acordeones principales abiertos
+                var allMainAccordions = document.querySelectorAll('.accordion[id^="accordionExample"] .accordion-collapse.show');
+                allMainAccordions.forEach(function (openAccordion) {
+                    if (openAccordion !== collapseElement) {
+                        var collapseInstance = bootstrap.Collapse.getInstance(openAccordion);
+                        collapseInstance.hide();
+                    }
+                });
+            } else {
+                // Si es un desplegable interno, solo cerrar otros desplegables del mismo contenedor
+                var openInternalCollapse = parentAccordion.querySelectorAll('.collapse.show');
+                openInternalCollapse.forEach(function (openCollapseElement) {
                     if (openCollapseElement !== collapseElement) {
                         var collapseInstance = bootstrap.Collapse.getInstance(openCollapseElement);
                         collapseInstance.hide();
                     }
                 });
-            });
+            }
         });
     });
+});
 </script>
     
 
