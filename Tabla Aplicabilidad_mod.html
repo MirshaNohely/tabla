@@ -1,10 +1,12 @@
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla Aplicabilidad</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    
-
-  
+    <!-- Estilos personalizados -->
 
     <style>
         body {
@@ -131,7 +133,8 @@
         }
 
     </style>
-
+</head>
+<body>
     <h1 class="title text-center my-4"><span>Tabla de Aplicabilidad, Actualización y Conservación de la Información</span></h1>
 
     <div class="row">
@@ -216,7 +219,7 @@
                                     Normativa
                                 </button>
                             </h2>
-                            
+                            <div id="nestedCollapse2"class="accordion-collapse collapse" data-bs-parent="#nestedAccordion2">
                                 <div class="accordion-body">
                                     <div class="card border border-white">
                                                        
@@ -287,6 +290,7 @@
                                                 </button>
                                             </h2>
                                             <div id="nestedCollapse2-1" class="accordion-collapse collapse" aria-labelledby="nestedHeading2-1" data-bs-parent="#nestedAccordion2-1">
+                                                
                                                 <div class="accordion-body">
                                                     <div class="card border border-white">
                                                         
@@ -4133,90 +4137,67 @@
         
 <!-------------------------------------------------------------------------------->
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Bootstrap 5.1.3 JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Seleccionar todos los elementos colapsables (acordeones principales y desplegables internos)
-            var collapseElements = document.querySelectorAll('.accordion-collapse');
-            
-            collapseElements.forEach(function (collapseElement) {
-                // Escuchar el evento de apertura de cada acordeón
-                collapseElement.addEventListener('show.bs.collapse', function () {
-                    // Verificar si el acordeón pertenece a un acordeón principal
-                    var parentAccordion = collapseElement.closest('.accordion');
-                    var isMainAccordion = parentAccordion && parentAccordion.id.startsWith('accordionExample'); // Identificar si es acordeón principal
-                    var isSpecialMainAccordion = ['collapse1', 'collapse3', 'collapse5'].includes(collapseElement.id); // Verificar si es acordeón principal especial (collapse1, collapse3, collapse5)
-                    
-                    // Verificar si el acordeón está dentro de un contenedor específico (nestedCollapse)
-                    var isInNestedCollapse = collapseElement.closest('.nestedCollapse') !== null;
-    
-                    // Mostrar información de los acordeones abiertos
-                    console.log('Acordeón abierto: ', collapseElement.id);
+ <!-- jQuery -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <!-- Bootstrap JS -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+ <!-- Script personalizado -->
+ <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Seleccionar todos los elementos colapsables (acordeones principales y desplegables internos)
+        var collapseElements = document.querySelectorAll('.accordion-collapse');
         
-                    if (isMainAccordion && isSpecialMainAccordion && !isInNestedCollapse) {
-                        // Si es un acordeón principal especial (collapse1, collapse3, collapse5) y no está en nestedCollapse, cerramos otros acordeones principales abiertos
-                        console.log('Es un acordeón principal especial fuera de nestedCollapse.');
+        collapseElements.forEach(function (collapseElement) {
+            // Escuchar el evento de apertura de cada acordeón
+            collapseElement.addEventListener('show.bs.collapse', function () {
+                // Verificar si el acordeón pertenece a un acordeón principal
+                var parentAccordion = collapseElement.closest('.accordion');
+                var isMainAccordion = parentAccordion && parentAccordion.id.startsWith('accordionExample'); // Identificar si es acordeón principal
+                var isSpecialMainAccordion = ['collapse1', 'collapse3', 'collapse5'].includes(collapseElement.id); // Verificar si es acordeón principal especial (collapse1, collapse3, collapse5)
+                
+                // Verificar si el acordeón está dentro de un contenedor específico (nestedCollapse)
+                var isInNestedCollapse = collapseElement.closest('.nestedCollapse') !== null;
     
-                        var allMainAccordions = document.querySelectorAll('.accordion[id^="accordionExample"] .accordion-collapse.show');
-                        allMainAccordions.forEach(function (openAccordion) {
-                            // Solo cerramos los acordeones principales que no están en nestedCollapse
-                            var isAccordionInNested = openAccordion.closest('.nestedCollapse') !== null;
-                            if (openAccordion !== collapseElement && !isAccordionInNested) {
-                                var collapseInstance = bootstrap.Collapse.getInstance(openAccordion);
-                                console.log('Cerrando acordeón principal: ', openAccordion.id);
-                                collapseInstance.hide();
-                            }
-                        });
-                    } else {
-                        // Si es un acordeón interno o cualquier otro acordeón que no sea de los especiales o que esté dentro de nestedCollapse, su comportamiento es normal
-                        console.log('Acordeón comportándose normalmente.');
+                // Mostrar información de los acordeones abiertos
+                console.log('Acordeón abierto: ', collapseElement.id);
+        
+                if (isMainAccordion && isSpecialMainAccordion && !isInNestedCollapse) {
+                    // Si es un acordeón principal especial (collapse1, collapse3, collapse5) y no está en nestedCollapse, cerramos otros acordeones principales abiertos
+                    console.log('Es un acordeón principal especial fuera de nestedCollapse.');
     
-                        if (!isMainAccordion) {
-                            // Si es un acordeón interno, se comporta normalmente
-                            console.log('Es un acordeón interno. Se comporta normalmente.');
-    
-                            // Aquí manejamos específicamente el comportamiento de los acordeones internos
-                            var nestedAccordionParent = collapseElement.closest('.accordion'); // Asegurarse de que el contenedor de acordeón sea correcto
-                            var openInternalCollapse = nestedAccordionParent.querySelectorAll('.accordion-collapse.show');
-                            
-                            openInternalCollapse.forEach(function (openCollapseElement) {
-                                if (openCollapseElement !== collapseElement) {
-                                    // Si otro acordeón interno está abierto, se cierra
-                                    var collapseInstance = bootstrap.Collapse.getInstance(openCollapseElement);
-                                    console.log('Cerrando acordeón interno: ', openCollapseElement.id);
-                                    collapseInstance.hide();
-                                } else {
-                                    // Si el acordeón actual es el que se está abriendo, no hacer nada
-                                    console.log('Este acordeón interno ya está abierto: ', collapseElement.id);
-                                }
-                            });
+                    var allMainAccordions = document.querySelectorAll('.accordion[id^="accordionExample"] .accordion-collapse.show');
+                    allMainAccordions.forEach(function (openAccordion) {
+                        // Solo cerramos los acordeones principales que no están en nestedCollapse
+                        var isAccordionInNested = openAccordion.closest('.nestedCollapse') !== null;
+                        if (openAccordion !== collapseElement && !isAccordionInNested) {
+                            var collapseInstance = bootstrap.Collapse.getInstance(openAccordion);
+                            console.log('Cerrando acordeón principal: ', openAccordion.id);
+                            collapseInstance.hide();
+                            console.log('Acordeón principal cerrado: ', openAccordion.id);
                         }
-                    }
-                });
+                    });
+                } else {
+                    // Si es un acordeón interno o cualquier otro acordeón que no sea de los especiales o que esté dentro de nestedCollapse, su comportamiento es normal
+                    console.log('Acordeón comportándose normalmente.');
+                }
+            });
     
-                // Evitar que los acordeones internos (nestedCollapse) se cierren
-                collapseElement.addEventListener('hide.bs.collapse', function (event) {
-                    var isInNestedCollapse = collapseElement.closest('.nestedCollapse') !== null;
-                    
-                    if (isInNestedCollapse) {
-                        console.log('Acordeón interno cerrado: ', collapseElement.id);
-                        event.preventDefault(); // Evitar que el acordeón se cierre
-                    }
-                });
+            // Permitir que los acordeones internos (nestedCollapse) se cierren normalmente
+            collapseElement.addEventListener('hide.bs.collapse', function (event) {
+                var isInNestedCollapse = collapseElement.closest('.nestedCollapse') !== null;
+                
+                if (isInNestedCollapse) {
+                    console.log('Cerrando acordeón nested: ', collapseElement.id);
+                } else {
+                    console.log('Cerrando acordeón principal: ', collapseElement.id);
+                }
             });
         });
+    });
     </script>
-    
-    
-    
-    
+
+</body>
+</html>
 
 
 
