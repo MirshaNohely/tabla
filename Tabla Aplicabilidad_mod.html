@@ -4176,8 +4176,21 @@
                             console.log('Acordeón principal cerrado: ', openAccordion.id);
                         }
                     });
+                } else if (!isMainAccordion && isInNestedCollapse) {
+                    // Si es un acordeón nested, cerramos otros acordeones nested dentro del mismo contenedor
+                    console.log('Es un acordeón nested.');
+    
+                    var nestedAccordionParent = collapseElement.closest('.nestedCollapse');
+                    var openNestedAccordions = nestedAccordionParent.querySelectorAll('.accordion-collapse.show');
+                    openNestedAccordions.forEach(function (openAccordion) {
+                        if (openAccordion !== collapseElement) {
+                            var collapseInstance = bootstrap.Collapse.getInstance(openAccordion);
+                            console.log('Cerrando acordeón nested: ', openAccordion.id);
+                            collapseInstance.hide();
+                        }
+                    });
                 } else {
-                    // Si es un acordeón interno o cualquier otro acordeón que no sea de los especiales o que esté dentro de nestedCollapse, su comportamiento es normal
+                    // Si es un acordeón normal, su comportamiento es normal
                     console.log('Acordeón comportándose normalmente.');
                 }
             });
@@ -4195,7 +4208,6 @@
         });
     });
     </script>
-
 </body>
 </html>
 
